@@ -29,7 +29,7 @@ public class helloController {
 
     @GetMapping("hello-api")
     @ResponseBody
-    public Hello helloApi(@RequestParam("name") String name) {
+    public Hello helloApi(@RequestParam("name") String name) { // HelloController클래스 안에서 static class Hello클래스를 또 사용할 수 있음
         Hello hello = new Hello();
         hello.setName(name);
         return hello;
@@ -38,11 +38,11 @@ public class helloController {
     static class Hello {
         private String name;
 
-        public String getName() {
+        public String getName() { //getter
             return name;
         }
 
-        public void setName(String name) {
+        public void setName(String name) { //setter
             this.name = name;
         }
     }
