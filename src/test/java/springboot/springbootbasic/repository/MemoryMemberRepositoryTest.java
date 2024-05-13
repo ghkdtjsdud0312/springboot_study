@@ -18,7 +18,7 @@ class MemoryMemberRepositoryTest {
         repository.clearStore();
     }
 
-    // test는 서로 의존 관계 없이 실행이 되어야 환다. 그러기 위해서는 하나의 test가 끝날 때마다 저장소나 공용 데이터들을 다 지워 줘야 문제 없이 작동 한다.
+    // test는 서로 의존 관계 없이 실행이 되어야 한다. 그러기 위해서는 하나의 test가 끝날 때마다 저장소나 공용 데이터들을 다 지워 줘야 문제 없이 작동 한다.
     @Test
     // 저장이 잘 되는지 테스트 해보기
     public void save() {
