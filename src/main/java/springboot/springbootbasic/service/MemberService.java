@@ -2,14 +2,20 @@ package springboot.springbootbasic.service;
 
 import springboot.springbootbasic.domain.Member;
 import springboot.springbootbasic.repository.MemberRepository;
-import springboot.springbootbasic.repository.MemoryMemberRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 // service는 연결 해줘야 함
 public class MemberService {
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    // 원래 코드는 private final MemberRepository memberRepository = new MemoryMemberRepository;
+    // 이지만 test 코드의     MemoryMemberRepository memberRepository = new MemoryMemberRepository();의 DB 공간이 달라질 수 있으므로 밑에 코드처럼 바꿔준다.
+    private final MemberRepository memberRepository;
+
+    // 외부에서 넣어주게 바꿈
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     // 회원 가입
     public Long join(Member member) {
