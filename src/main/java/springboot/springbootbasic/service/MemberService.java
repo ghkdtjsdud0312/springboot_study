@@ -7,7 +7,7 @@ import springboot.springbootbasic.repository.MemoryMemberRepository;
 import java.util.List;
 import java.util.Optional;
 
-// service는 join을 해줘야 함
+// service는 연결 해줘야 함
 public class MemberService {
     private final MemberRepository memberRepository = new MemoryMemberRepository();
 
