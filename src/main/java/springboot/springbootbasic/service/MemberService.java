@@ -1,11 +1,14 @@
 package springboot.springbootbasic.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import springboot.springbootbasic.domain.Member;
 import springboot.springbootbasic.repository.MemberRepository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service // 서비스가 뜨면 Autowired가 있으면 멤버 리포지토리가 필요하겠구나 해서 스프링 컨테이너에 있는 메모리멤버 리포지토리를 넣어줌
 // service는 연결 해줘야 함
 public class MemberService {
     // 원래 코드는 private final MemberRepository memberRepository = new MemoryMemberRepository;
@@ -13,6 +16,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     // 외부에서 넣어주게 바꿈
+    @Autowired // 멤버 서비스는 멤버 리포지토리가 필요
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
