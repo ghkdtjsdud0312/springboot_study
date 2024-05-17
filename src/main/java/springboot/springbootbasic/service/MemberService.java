@@ -12,7 +12,7 @@ import java.util.Optional;
 // service는 연결 해줘야 함
 public class MemberService {
     // 원래 코드는 private final MemberRepository memberRepository = new MemoryMemberRepository;
-    // 이지만 test 코드의     MemoryMemberRepository memberRepository = new MemoryMemberRepository();의 DB 공간이 달라질 수 있으므로 밑에 코드처럼 바꿔준다.
+    // 이지만 test 코드의 MemoryMemberRepository memberRepository = new MemoryMemberRepository();의 DB 공간이 달라질 수 있으므로 밑에 코드처럼 바꿔준다.
     private final MemberRepository memberRepository;
 
     // 외부에서 넣어주게 바꿈

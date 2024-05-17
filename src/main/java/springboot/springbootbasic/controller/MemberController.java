@@ -26,6 +26,8 @@ import springboot.springbootbasic.service.MemberService;
 // 설정으로 싱글톤이 아니게 설정할 수 있지만, 특별한 경우를 제외하면 대부분 싱글톤을 사용한다.
 
 @Controller
+// 수동으로 @bean을 등록하려면 컨트롤러는 스프링이 관리하기 때문에 컨트롤러는 컴포넌트 스캔으로 올라가고 이는 컴포넌트 스캔이기 때문에 @Autowired로 자동이라 따로 설정 할 수 없다.
+// 그래서 @Autowired로 해주면 멤버 서비스를 SpringConfig에 쓴 memberService에 넣어준다.
 public class MemberController {
 
     // 스프링 컨테이너에 등록을 하고 쓰면 되는데 이러면 딱 하나만 등록이 됨
