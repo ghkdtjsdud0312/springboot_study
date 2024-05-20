@@ -3,6 +3,8 @@ package springboot.springbootbasic.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import springboot.springbootbasic.domain.Member;
 import springboot.springbootbasic.service.MemberService;
 
 // spring이 뜰 때 Controller가 객체를 생성해서 스프링이 가지고 있음
@@ -46,5 +48,14 @@ public class MemberController {
         return "members/createMemberForm";
     }
 
+    @PostMapping("/members/new") // 새로운 값을 등록하는 것이므로 postMapping으로 해야 한다.
+    public String create(MemberForm form) {
+        Member member = new Member();
+        member.setName(form.getName());
+
+        memberService.join(member);
+
+        return "redirect:/";
+    }
 
 }
