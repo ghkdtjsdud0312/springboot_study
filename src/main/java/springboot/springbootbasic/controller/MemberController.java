@@ -2,6 +2,7 @@ package springboot.springbootbasic.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import springboot.springbootbasic.service.MemberService;
 
 // spring이 뜰 때 Controller가 객체를 생성해서 스프링이 가지고 있음
@@ -40,4 +41,8 @@ public class MemberController {
         this.memberService = memberService;
     }
 
+    @GetMapping("/members/new")
+    public String createForm() {
+        return "members/createMemberForm";
+    }
 }
