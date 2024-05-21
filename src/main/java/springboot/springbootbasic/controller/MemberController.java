@@ -2,10 +2,13 @@ package springboot.springbootbasic.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import springboot.springbootbasic.domain.Member;
 import springboot.springbootbasic.service.MemberService;
+
+import java.util.List;
 
 // spring이 뜰 때 Controller가 객체를 생성해서 스프링이 가지고 있음
 // 스프링 컨트롤러에서 스프링 빈이 생성됨
@@ -43,11 +46,13 @@ public class MemberController {
         this.memberService = memberService;
     }
 
+    // 회원 등록 조회
     @GetMapping("/members/new")
     public String createForm() {
         return "members/createMemberForm";
     }
 
+    // 회원 등록하기
     @PostMapping("/members/new") // 새로운 값을 등록하는 것이므로 postMapping으로 해야 한다.
     public String create(MemberForm form) {
         Member member = new Member();
@@ -58,4 +63,11 @@ public class MemberController {
         return "redirect:/";
     }
 
+    // 회원 웹기능 - 조회 , 회원 목록
+    @GetMapping("/members")
+    public String list(Model model) {
+        List<Member> members = memberService.findMembers(); // 회원 조회하기
+        model.addAttribute("members", members);
+        return "members/memberList";
+    };
 }
