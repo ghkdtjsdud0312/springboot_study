@@ -46,19 +46,23 @@ public class JdbcMemberRepository implements MemberRepository{
     @Override
     public Optional<Member> findById(Long id) {
         String sql = "select * from member where id = ?";
+
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
+
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setLong(1, id);
-            rs = pstmt.executeQuery();
+
+            rs = pstmt.executeQuery(); // 조회 할 때 executeQuery() 사용
+
             if(rs.next()) {
-                Member member = new Member();
+                Member member = new Member(); // member 값이 있으면 id,name은 set으로 받아옴
                 member.setId(rs.getLong("id"));
                 member.setName(rs.getString("name"));
-                return Optional.of(member);
+                return Optional.of(member); // optional로 반환 해줌
             } else {
                 return Optional.empty();
             }
@@ -67,17 +71,23 @@ public class JdbcMemberRepository implements MemberRepository{
         } finally {
             close(conn, pstmt, rs);
         } }
+
+    // 모든 회원 조회하기
     @Override
     public List<Member> findAll() {
         String sql = "select * from member";
+
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
+
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
-            List<Member> members = new ArrayList<>();
+
+            List<Member> members = new ArrayList<>(); // list에 member를 담음
+
             while(rs.next()) {
 
                 Member member = new Member();
@@ -85,26 +95,32 @@ public class JdbcMemberRepository implements MemberRepository{
                 member.setName(rs.getString("name"));
                 members.add(member);
             }
-            return members;
+            return members; // member 반환
+
         } catch (Exception e) {
             throw new IllegalStateException(e);
         } finally {
             close(conn, pstmt, rs);
         }
     }
+
+    // 회원 이름 조회 하기
     @Override
     public Optional<Member> findByName(String name) {
         String sql = "select * from member where name = ?";
+
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
+
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, name);
             rs = pstmt.executeQuery();
+
             if(rs.next()) {
-                Member member = new Member();
+                Member member = new Member(); // member get으로 받기
                 member.setId(rs.getLong("id"));
                 member.setName(rs.getString("name"));
                 return Optional.of(member);
@@ -117,9 +133,11 @@ public class JdbcMemberRepository implements MemberRepository{
         }
     }
 
+    // 스프링 프레임워크를 쓸 때는 꼭 가져와야 한다.
     private Connection getConnection() {
-        return DataSourceUtils.getConnection(dataSource);
+        return DataSourceUtils.getConnection(dataSource); // DataSourceUtils를 통해서 dataSource를 가짐(데이터베이스 커넥션을 똑같은 걸 유지해주고 유지시켜줌)
     }
+
     private void close(Connection conn, PreparedStatement pstmt, ResultSet rs) {
         try {
             if (rs != null) {
@@ -143,6 +161,8 @@ public class JdbcMemberRepository implements MemberRepository{
             e.printStackTrace();
         }
     }
+
+    // 닫을 때는 DataSourceUtils를 통해서 release해줘야 한다.
     private void close(Connection conn) throws SQLException {
         DataSourceUtils.releaseConnection(conn, dataSource);
     } }
