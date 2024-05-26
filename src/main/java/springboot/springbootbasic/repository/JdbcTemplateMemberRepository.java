@@ -43,7 +43,7 @@ public class JdbcTemplateMemberRepository implements MemberRepository{
     @Override
     // jdbcTemplate 쿼리로 사용 해서 코드 간단하게 사용 할 수 있다.
     public Optional<Member> findById(Long id) {
-       List<Member> result = jdbcTemplate.query("select * from member where id = ?", memberRowMapper());
+       List<Member> result = jdbcTemplate.query("select * from member where id = ?", memberRowMapper(), id);
        return result.stream().findAny();
     }
 
