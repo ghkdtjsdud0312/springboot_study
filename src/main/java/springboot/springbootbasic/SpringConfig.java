@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springboot.springbootbasic.repository.JdbcMemberRepository;
+import springboot.springbootbasic.repository.JdbcTemplateMemberRepository;
 import springboot.springbootbasic.repository.MemberRepository;
 import springboot.springbootbasic.repository.MemoryMemberRepository;
 import springboot.springbootbasic.service.MemberService;
@@ -32,7 +33,8 @@ public class SpringConfig {
     @Bean
     public MemberRepository memberRepository() {
 //        return new MemoryMemberRepository(); // 메모리멤버리포지토리 구현체(인터페이스는 안됨)
-        return new JdbcMemberRepository(dataSource); // JdbcMemberRepository 클래스를 만들고 인터페이스 확장함
+//        return new JdbcMemberRepository(dataSource); // JdbcMemberRepository 클래스를 만들고 인터페이스 확장함
+          return new JdbcTemplateMemberRepository(dataSource);
     }
 
 }
