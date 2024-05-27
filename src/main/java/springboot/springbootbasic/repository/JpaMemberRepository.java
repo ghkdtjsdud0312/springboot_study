@@ -16,21 +16,28 @@ public class JpaMemberRepository implements MemberRepository{
 
     @Override
     public Member save(Member member) {
-        return null;
+         em.persist(member); // persist는 영구적으로 저장한다는 뜻이다.
+        return member;
     }
 
     @Override
     public Optional<Member> findById(Long id) {
-        return Optional.empty();
+        Member member = em.find(Member.class, id); // 조회할 때 사용
+        return Optional.ofNullable(member); // 없을 수도 있으니
     }
 
     @Override
     public Optional<Member> findByName(String name) {
-        return Optional.empty();
+        List<Member> result = em.createQuery("select m from Member m where m.name= :name", Member.class)
+                .setParameter("name", name)
+                .getResultList();
+
+        return result.stream().findAny();
     }
 
     @Override
     public List<Member> findAll() {
-        return null;
+       return em.createQuery("select m from Member m", Member.class) // createQuery 안에 내용은 jpal이라는 쿼리이다.
+                .getResultList();
     }
 }
