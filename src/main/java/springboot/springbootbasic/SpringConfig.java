@@ -3,6 +3,7 @@ package springboot.springbootbasic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import springboot.springbootbasic.AOP.TimeTraceAop;
 import springboot.springbootbasic.repository.*;
 import springboot.springbootbasic.service.MemberService;
 
@@ -36,6 +37,12 @@ public class SpringConfig {
     public MemberService memberService() {
         return new MemberService(memberRepository); // 멤버 서비스가 스프링빈에 등록이 된다. -> 생성자에 멤버 리포지토리를 연결 시켜 줘야 헤서 memberRepository() 넣어줘야 한다.
     }
+
+    // AOP
+//    @Bean
+//    public TimeTraceAop timeTraceAop() {
+//        return new TimeTraceAop();
+//    }
 
     // 멤버 서비스랑 멤버 리포지토리를 둘 다 스프링빈에 등록하고 등록되어 있는 멤버 리포지토리를 멤버 서비스에 넣어준다.
 //    @Bean

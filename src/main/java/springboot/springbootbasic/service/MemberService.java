@@ -49,7 +49,15 @@ public class MemberService {
 
     // 전체 회원 조회
     public List<Member> findMembers() {
-        return memberRepository.findAll(); // 로직이 List<Member> 이기 때문에 return 반환문
+
+        long start = System.currentTimeMillis();
+        try {
+            return memberRepository.findAll(); // 로직이 List<Member> 이기 때문에 return 반환문
+        } finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish - start;
+            System.out.println("findMembers " + timeMs + "ms");
+        }
     }
 
     public Optional<Member> findOne(Long memberId) {
